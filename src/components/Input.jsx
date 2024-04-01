@@ -3,7 +3,9 @@ import { Box, TextField, Stack } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { addItem } from "../redux/Slice/toDoListSlice"; // Importing addItem action from Redux slice
 import Fab from "@mui/material/Fab";
+
 import AddIcon from "@mui/icons-material/Add";
+import { toast } from "react-toastify";
 
 const Input = () => {
   const [item, setItem] = useState(""); // State to store input value
@@ -12,8 +14,13 @@ const Input = () => {
   // Function to handle adding a new item
   const handleAddItem = (e) => {
     e.preventDefault(); // Preventing default form submission behavior
+
+    if (item == "") {
+      toast("Please enter item.."); // pop up  message to fill the input field
+      return;
+    }
     dispatch(addItem(item)); // Dispatching addItem action with the input value
-    console.log(item); // Logging the input value (optional)
+
     setItem(""); // Clearing the input field after adding the item
   };
 
